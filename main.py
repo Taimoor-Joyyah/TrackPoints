@@ -17,6 +17,16 @@ class Point:
                     near_point = point
         return near_point
 
+    def point_distance(self, end_point, point_on_track):
+        previous_point = self
+        total_distance = 0
+        for index, point in enumerate(point_on_track[point_on_track.index(self):]):
+            if index:
+                total_distance += point.distance(previous_point)
+                previous_point = point
+            if point is end_point:
+                return total_distance
+
 
 class Point3D(Point):
     def __init__(self, x, y, z):
@@ -44,3 +54,10 @@ while point_not_on_track:
     point_on_track.append(current_point)
 
 print([(point.x, point.y, point.z) for point in point_on_track])
+
+print(point_on_track[0].distance(point_on_track[1]))
+print(point_on_track[1].distance(point_on_track[2]))
+print(point_on_track[2].distance(point_on_track[3]))
+print(point_on_track[3].distance(point_on_track[4]))
+print(point_on_track[4].distance(point_on_track[5]))
+print(point_on_track[0].point_distance(point_on_track[5], point_on_track))
